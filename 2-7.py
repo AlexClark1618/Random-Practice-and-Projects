@@ -1,0 +1,15 @@
+'''Catalan Numbers'''
+
+def Catalan_Numbers(N,C):
+
+    n=0
+
+    while n < N:
+
+        print(int(C))
+
+        C = (4*n + 2) / (n + 2) * C
+
+        n+=1
+
+Catalan_Numbers(10, 1)
