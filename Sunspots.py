@@ -1,4 +1,5 @@
 from matplotlib import pyplot as plt
+from Running_Average import running_average
 
 with open("sunspots.txt", "r") as sunspots_file:
     
@@ -14,24 +15,29 @@ with open("sunspots.txt", "r") as sunspots_file:
 month_data = [tup[0] for tup in sunspot_month_data_list]
 sunspot_number_data = [tup[1] for tup in sunspot_month_data_list]
 
-plt.plot(month_data, sunspot_number_data)
-plt.xlabel("Month (Starting form Jan 1749)")
-plt.ylabel("Sunspot Occurance")
-plt.title("Sunspot Occurance Per Month")
-plt.show()
+def plot_raw_data(toggle: bool):
+    plt.plot(month_data, sunspot_number_data, label="Raw Data")
+    plt.xlabel("Month (Starting form Jan 1749)")
+    plt.ylabel("Sunspot Occurance")
+    plt.title("Sunspot Occurance Per Month")
+    plt.legend(loc="upper left")
 
-def running_average(data: list, r: "radius"):
+    if toggle:
+        plt.show()
 
-    running_avg_data=[]
+def plot_running_average(toggle: bool, r: "window_radius"):
+    plt.plot(month_data, running_average(sunspot_number_data, r), label=f'Running Average with Window Radius r={r}')
+    plt.xlabel("Month (Starting form Jan 1749)")
+    plt.ylabel("Sunspot Occurance")
+    plt.title("Sunspot Occurance Per Month")
+    plt.legend(loc="upper left")
 
-    for i in range(len(sunspot_number_data)):
+    if toggle:
+        plt.show()
 
-        try:
-            sum(sunspot_number_data[-r+i, r+i+1])
-        if sunspot_number_data.index(data) < r or sunspot_number_data.index(data) > (len(sunspot_number_data) - r):
 
-    for i in range(-r, r+1):
-    
+plot_raw_data(False)
+plot_running_average(True,r=100)
 
     
     
